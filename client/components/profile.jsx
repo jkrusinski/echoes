@@ -36,33 +36,23 @@ class Profile extends React.Component {
     });
   }
 
-
-  greetUser () {
-    // if current user is identified
-    if (this.state.currentUser) {
-      // greet them by name
-      return `Hello, ${this.state.currentUser}!`;
-    } else {
-      // new users are greetedwith Hello
-      return 'Hello!';
-    }
-  }
-
-
   render () {
     return (
       <div className="container">
-        <div className='col-md-8'>
-          <h2 className="profile-header">Impressions:</h2>
-          <table className="table-responsive table">
-            <UserProfileList allEntries={this.state.allEntries} />
-          </table>
-        </div>
-        <div className='col-md-4'>
-          <h2 className="profile-header">Following:</h2>
-          <table className="table-responsive table">
-            <WatcherList allWatcher={this.state.watching} />
-          </table>
+        <h1>{this.state.isLoggedInUser ? 'Your' : this.state.currentUser + '\'s'} Profile</h1>
+        <div className="row">
+          <div className='col-md-8'>
+            <h2 className="profile-header">Impressions:</h2>
+            <table className="table-responsive table">
+              <UserProfileList allEntries={this.state.allEntries} />
+            </table>
+          </div>
+          <div className='col-md-4'>
+            <h2 className="profile-header">Following:</h2>
+            <table className="table-responsive table">
+              <WatcherList allWatcher={this.state.watching} />
+            </table>
+          </div>
         </div>
       </div>
     );

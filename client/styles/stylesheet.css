@@ -457,3 +457,13 @@ td {
 .router-nav img {
 	height: 90%;
 }
+
+.user-search-input {
+	width: 300px;
+}
+
+.search-results .result {
+	width: 300px;
+	background-color: #fff;
+	border-top: solid #337ab7 1px;
+}

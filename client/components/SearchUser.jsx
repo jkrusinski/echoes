@@ -42,13 +42,16 @@ class SearchUser extends React.Component {
       <div>
         <input type="text"
           name="userSearch"
+          className="user-search-input"
           value={this.state.userSearch}
           onChange={this.handleInputChange} />
 
-        <div className="">
+        <div className="search-results">
           {this.state.results.map((result) => (
-            <div className="result">
-              <h1 key={result.id}>{result.user} - {result.username}</h1>
+            <div className="result" key={result.id}>
+              <Link to={'/profile/' + result.username}>
+                <h1>{result.user} - {result.username}</h1>
+              </Link>
             </div>
           ))}
         </div>

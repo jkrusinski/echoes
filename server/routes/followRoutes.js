@@ -21,7 +21,7 @@ router.get('/', util.isAuth, function(req, res, next) {
           Promise.all(allImpress)
             .then(function(result) {
               res.send(result);
-            })
+            });
         });
     });
 });
@@ -41,7 +41,7 @@ router.get('/:username', util.isAuth, function(req, res, next) {
 
           return Promise.all(allFollower)
             .then(function(result) {
-              res.json(result)
+              res.json(result);
             });
         });
     })
