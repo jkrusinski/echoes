@@ -1,4 +1,5 @@
 var knex = require('../db.js');
+var follower = require('./follower.js');
 var util = require('../../server/utilities');
 
 exports.getUser = function(username) {
@@ -6,6 +7,20 @@ exports.getUser = function(username) {
     .where('username', username)
     .then(result => {
       return result[0];
+    })
+    .then(user => {
+      return follower.getFollowers(user.id)
+        .then(results => {
+          var getFollowers = results.map(result => {
+            return (exports.getUserById(result.follower_id));
+          });
+
+          return Promise.all(getFollowers)
+            .then(function(followers) {
+              user.followers = followers.map(follower => follower.username);
+              return user;
+            });
+        });
     });
 };
 
@@ -14,6 +29,20 @@ exports.getUserById = function(id) {
     .where('id', id)
     .then(result => {
       return _.pick(result[0], ['id', 'user', 'username']);
+    })
+    .then(user => {
+      return follower.getFollowers(user.id)
+        .then(results => {
+          var getFollowers = results.map(result => {
+            return (exports.getUserById(result.follower_id));
+          });
+
+          return Promise.all(getFollowers)
+            .then(function(followers) {
+              user.followers = followers.map(follower => follower.username);
+              return user;
+            });
+        });
     });
 };
 

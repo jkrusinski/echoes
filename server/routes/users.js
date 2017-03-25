@@ -10,7 +10,7 @@ module.exports = function(passport) {
   router.get('/', util.isAuth, function(req, res, next) {
 
     if (req.query.current) {
-      res.json(_.pick(req.user, ['id', 'user', 'username']));
+      res.json(_.pick(req.user, ['id', 'user', 'username', 'followers']));
     } else {
 
       var query = req.query.search || '';
@@ -31,7 +31,7 @@ module.exports = function(passport) {
     '/login',
     passport.authenticate('login'),
     function(req, res, next) {
-      res.json(_.pick(req.user, ['id', 'user', 'username']));
+      res.json(_.pick(req.user, ['id', 'user', 'username', 'followers']));
     }
   );
 
@@ -39,7 +39,7 @@ module.exports = function(passport) {
     '/signup',
     passport.authenticate('signup'),
     function(req, res, next) {
-      res.json(_.pick(req.user, ['id', 'user', 'username']));
+      res.json(_.pick(req.user, ['id', 'user', 'username', 'followers']));
     }
   );
 

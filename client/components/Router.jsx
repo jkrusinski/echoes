@@ -16,6 +16,8 @@ class Router extends React.Component {
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
     this.logout = this.logout.bind(this);
+    this.removeFollower = this.removeFollower.bind(this);
+    this.addFollower = this.addFollower.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +36,27 @@ class Router extends React.Component {
           waitForAuth: false
         });
       }
+    });
+  }
+
+  removeFollower(username) {
+    var updateUser = this.state.user;
+    var followerIndex = updateUser.followers.indexOf(username);
+
+    updateUser.followers.splice(followerIndex);
+
+    this.setState({
+      user: updateUser
+    });
+  }
+
+  addFollower(username) {
+    var updateUser = this.state.user;
+
+    updateUser.followers.push(username);
+
+    this.setState({
+      user: updateUser
     });
   }
 
@@ -142,7 +165,11 @@ class Router extends React.Component {
 
           <Route path="/profile/:username?" render={props => (
             this.state.isAuthenticated ? (
-              <Profile user={this.state.user} target={props.match.params.username}/>
+              <Profile
+                user={this.state.user}
+                target={props.match.params.username}
+                addFollower={this.addFollower}
+                removeFollower={this.removeFollower} />
             ) : (
               !this.state.waitForAuth ? <Redirect to="/login" /> : null
             )
